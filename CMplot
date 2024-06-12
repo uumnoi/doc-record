@@ -1,0 +1,88 @@
+#CMplot重画Manhattan
+install.packages("CMplot")
+library("CMplot")
+
+#包里带的演示数据
+data(pig60K)
+head(pig60K)
+
+#数据读入
+data14 <- read.table("D:/0-WangZY/1.农科院作科所/邹新宇师姐产量品质协同GWAS/GWAS结果0611/Wglutein_23_BJ_150_RESULT.txt")
+data13 <- read.table("D:/0-WangZY/1.农科院作科所/邹新宇师姐产量品质协同GWAS/GWAS结果0611/Wglutein_22_XX_150_RESULT.txt")
+head(data)
+
+#染色体名称修改
+data14$V2= c('1'="1A",'2'="1B",'3'="1D",   
+            '4'="2A", '5'="2B", '6'="2D", 
+            '7'="3A", '8'="3B", '9'="3D", 
+            '10'="4A",'11'="4B",'12'="4D",
+            '13'="5A",'14'="5B",'15'="5D",
+            '16'="6A",'17'="6B",'18'="6D",
+            '19'="7A",'20'="7B",'21'="7D")[as.character(data14$V2)]
+
+#单条染色体manhattan
+CMplot(data14, plot.type = "m",LOG10 = TRUE, band = 0, 
+       threshold = 1e-05, threshold.lwd = 1, threshold.lty = 1, 
+       signal.cex = c(1.5, 1.5), signal.pch = c(19,19), 
+       chr.den.col = NULL, cex = 0.7, bin.size = 1e5, 
+       axis.cex = 1.5,
+       file = "jpg", dpi = 300, file.output = TRUE, width = 18, height = 9, verbose = TRUE)
+
+#QQplot
+CMplot(data2, plot.type = "q", box = FALSE, 
+       conf.int = TRUE, conf.int.col = NULL, threshold.col = "red", threshold.lty = 2,
+       main = "QQplot",
+       file = "jpg", dpi = 600, file.output = TRUE, verbose = TRUE, width = 5, height = 5)
+
+
+
+
+
+
+
+
+
+#以下均为代码暂存
+file.output = FALSE
+
+CMplot(pig60K,plot.type="q",box=FALSE,file="jpg",file.name="",dpi=300,
+       conf.int=TRUE,conf.int.col=NULL,threshold.col="red",threshold.lty=2,
+       file.output=TRUE,verbose=TRUE,width=5,height=5)
+
+CMplot(data1,plot.type="m",band=0,threshold =1e-05,threshold.col="black",amplify=TRUE,
+       signal.col=c("red","green"), signal.cex=c(1.7,1.7),signal.pch=c(19,19),LOG10=TRUE,ylab=expression(-log[10](P.value)),
+       pch=19,cex = 0.5,dpi=100,file.output=TRUE,conf.int=F)
+CMplot(data,plot.type = "q",cex = 0.5,conf.int=F,dpi=100,memo= paste(i,".trait",name_data[i,3],sep="_"))
+
+CMplot(pig60K, plot.type = "m", LOG10 = TRUE, ylim = NULL, threshold = c(1e-06, 1e-04),
+       threshold.lty = c(1, 2), threshold.lwd = c(1, 1), threshold.col = c("black","grey"), 
+       amplify = TRUE, bin.size = 1e+06, 
+       chr.den.col = c("darkgreen", "yellow", "red"), 
+       signal.col = c("red", "green"), signal.cex = c(1.5, 1.5), signal.pch = c(19,19), 
+       file = "jpg", memo = "", dpi = 300, file.output = TRUE, verbose = TRUE,
+       width = 14, height = 6)
+##  Rectangular-Manhattan Plotting trait1.
+##  Rectangular-Manhattan Plotting trait2.
+##  Rectangular-Manhattan Plotting trait3.
+##  Plots are stored in: F:/demo script/基因组分析系列/CMplot
+
+CMplot(data, plot.type="m", LOG10=TRUE, ylim=NULL, 
+       threshold=c(1e-6,1e-4),
+       threshold.lty=c(1,2),threshold.lwd=c(1,1), 
+       threshold.col=c("black","grey"), amplify=F,
+       bin.size=1e6,chr.den.col=c("darkgreen", "yellow","red"),
+       signal.col=c("red","green"),signal.cex=c(1,1),
+       signal.pch=c(19,19),
+       highlight = c('MARC0066784','MARC0040492'),highlight.col = 'black',
+       highlight.cex = 1,
+       file="jpg",dpi=300,
+       file.output=TRUE,verbose=TRUE)
+#threshold设置阈值，如4和6(log以后的)
+#signal设置超过阈值的点，如绿色和红色的点
+#highlight个性化某些点，如图中的两个黑色的点
+#highlight.text为某些点添加标签
+
+
+
+
+
